@@ -8,6 +8,8 @@ from os import path
 
 SLEEP_TIME = 900
 filename = './data.json'
+url_weather = "https://weather.com/weather/today/l/10.49,107.25"
+url_airquality = "https://weather.com/forecast/air-quality/l/f897f4ac8e6c90b59c95b961403bb9a0041661f33852f68eb6041b5abc25a164"
 
 def get_time():
     now = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).strftime("%m/%d/%Y, %H:%M:%S")
@@ -15,7 +17,7 @@ def get_time():
     return now
 
 def get_airquality():
-    soup = BeautifulSoup(requests.get("https://weather.com/forecast/air-quality/l/495b7c9b6fd1597a531b13797693f17973525dbb766972208d891625c303f24b").content,'html.parser')
+    soup = BeautifulSoup(requests.get(url_airquality).content,'html.parser')
 
     value = soup.find('text',class_="DonutChart--innerValue--2rO41 AirQuality--extendedDialText--2AsJa").text
 
@@ -34,7 +36,7 @@ def get_airquality():
     return dict(air_quality)
 
 def get_weather():
-    soup = BeautifulSoup(requests.get("https://weather.com/weather/today/l/10.48,107.21").content,'html.parser')
+    soup = BeautifulSoup(requests.get(url_weather).content,'html.parser')
 
     temp = soup.find('div',class_="CurrentConditions--primary--2SVPh").text
 

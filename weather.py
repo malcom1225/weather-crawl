@@ -1,6 +1,8 @@
 import requests 
 from bs4 import BeautifulSoup
+from datetime import datetime
 import time
+import pytz
 import json 
 from os import path
 
@@ -8,7 +10,7 @@ SLEEP_TIME = 900
 filename = './data.json'
 
 def get_time():
-    now = time.strftime("%m/%d/%Y, %H:%M:%S", time.localtime())
+    now = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).strftime("%m/%d/%Y, %H:%M:%S")
 
     return now
 
@@ -85,7 +87,7 @@ def data_prepare():
     list_weather.append(raw_data)
 
     print(raw_data)
-    
+
     return list_weather
 
 def write_weather(listTemp):

@@ -66,9 +66,6 @@ def get_weather():
         'UV_Index':uvindex,
         'Air_Quality':get_airquality(),
     }
-    
-    print(weather)
-
     return weather
 
 def data_prepare():
@@ -87,13 +84,14 @@ def data_prepare():
     }
     list_weather.append(raw_data)
 
+    print(raw_data)
+    
     return list_weather
 
 def write_weather(listTemp):
     with open(filename, 'w') as json_file:
         json.dump(listTemp, json_file,indent=4,separators=(',',': '))
     
-    print(listTemp.pop())
 
 def main():
     try:

@@ -1,6 +1,0 @@
-bs4 
-requests 
-time 
-json 
-os
-flask

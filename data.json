@@ -1,0 +1,17 @@
+[
+    {
+        "weather": {
+            "Temperature": "29",
+            "Condition": "Cloudy",
+            "Humidity": "76%",
+            "UV_Index": "9 of 10",
+            "Air_Quality": {
+                "Value": "87",
+                "Quality": "Moderate",
+                "Quality_Description": "Air quality is acceptable; however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution.",
+                "Pollution": "Primary Pollutant:PM2.5 (Particulate matter less than 2.5 microns)"
+            }
+        },
+        "datetime": "08/29/2021, 11:12:16"
+    }
+]

@@ -6,15 +6,24 @@ import pytz
 import json 
 from os import path
 
-SLEEP_TIME = 900
+SLEEP_TIME = 3600
 filename = './data.json'
 url_weather = "https://weather.com/weather/today/l/10.49,107.25"
 url_airquality = "https://weather.com/forecast/air-quality/l/f897f4ac8e6c90b59c95b961403bb9a0041661f33852f68eb6041b5abc25a164"
 
 def get_time():
-    now = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).strftime("%m/%d/%Y, %H:%M:%S")
+    now = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh'))
+    time = {
+        'DateTime':now.strftime("%m/%d/%Y, %H:%M:%S"),
+        'Day': now.strftime('%d'),
+        'Month': now.strftime('%m'),
+        'Year': now.strftime('%Y'),
+        'Hour': now.strftime('%H'),
+        'Minute': now.strftime('%M'),
+    }
 
-    return now
+    print(time)
+    return time
 
 def get_airquality():
     soup = BeautifulSoup(requests.get(url_airquality).content,'html.parser')
@@ -28,12 +37,12 @@ def get_airquality():
     quality_desc = soup.find('p',class_="AirQualityText--severityText--1wT_O AirQuality--extendedDialSeverityText--2rz1B").text
 
     air_quality = {
-        'Value': value,
+        'Pollution': pollution,
+        'Pollution_Value': value,
         'Quality': quality,
         'Quality_Description': quality_desc,
-        'Pollution': pollution,
     }
-    return dict(air_quality)
+    return air_quality
 
 def get_weather():
     soup = BeautifulSoup(requests.get(url_weather).content,'html.parser')
@@ -68,8 +77,9 @@ def get_weather():
         'Condition': condition,
         'Humidity': humidity,
         'UV_Index':uvindex,
-        'Air_Quality':get_airquality(),
     }
+    weather.update(get_airquality())
+
     return weather
 
 def data_prepare():
@@ -82,10 +92,10 @@ def data_prepare():
     with open(filename) as fp:
         list_weather = json.load(fp)
 
-    raw_data = {
-        'weather': get_weather(),
-        'datetime' : get_time()
-    }
+    raw_data = {}
+    raw_data.update(get_weather())
+    raw_data.update(get_time())
+
     list_weather.append(raw_data)
 
     print(raw_data)

@@ -14,12 +14,11 @@ url_airquality = "https://weather.com/forecast/air-quality/l/f897f4ac8e6c90b59c9
 def get_time():
     now = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh'))
     time = {
-        'DateTime':now.strftime("%m/%d/%Y, %H:%M:%S"),
+        'Date':now.strftime("%m/%d/%Y"),
+        'Time':now.strftime("%H:%M:%S"),
         'Day': now.strftime('%d'),
         'Month': now.strftime('%m'),
         'Year': now.strftime('%Y'),
-        'Hour': now.strftime('%H'),
-        'Minute': now.strftime('%M'),
     }
 
     print(time)
